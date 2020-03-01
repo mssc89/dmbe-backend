@@ -1,0 +1,9 @@
+{
+  "name": "dmbe-backend",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "express": "~4.16.1",
+    "pg": "^7.18.2"
+  }
+}
