@@ -42,6 +42,7 @@ testem.log
 /typings
 .editorconfig
 /e2e
+secret.js
 
 # System Files
 .DS_Store

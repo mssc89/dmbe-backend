@@ -5,7 +5,7 @@ const db = require('../utils/db');
 const router = new Router();
 module.exports = router;
 
-router.get('/posts', async (req, res) => {
-  const { rows } = await db.query('SELECT * FROM posts');
+router.get('/all', async (req, res) => {
+  const { rows } = await db.query('SELECT * FROM dmbe.posts');
   res.json(rows[0]);
 });
