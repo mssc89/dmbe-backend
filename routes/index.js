@@ -1,5 +1,15 @@
-const posts = require('./posts')
+let router = require('express').Router();
 
-module.exports = app => {
-  app.use('/posts', posts)
-}
+//controllers
+let postController = require('./postController');
+
+router.route('/posts')
+    .get(postController.index)
+    .post(postController.new);
+
+router.route('/posts/:post_id')
+    .get(postController.view)
+    .put(postController.update)
+    .delete(postController.delete);
+
+module.exports = router;

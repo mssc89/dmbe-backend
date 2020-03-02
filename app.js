@@ -1,7 +1,30 @@
-const express = require('express');
-const mountRoutes = require('./routes');
-const app = express();
-mountRoutes(app);
+//imports
+let express = require('express');
+let bodyParser = require('body-parser');
+let mongoose = require('mongoose');
 
-app.listen(3000);
-console.log("server is running");
+//express and routes init
+let app = express();
+let apiRoutes = require("./routes");
+
+//json support
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+//database connection
+mongoose.connect('mongodb://localhost/dmbe', { useNewUrlParser: true, useUnifiedTopology:true });
+var db = mongoose.connection;
+
+if(db){
+  console.log("DB connection succesful");
+}
+else{
+  console.log("DB connection error");
+}
+
+//delegate api routes to /api
+app.use('/api', apiRoutes);
+
+app.listen(3000, function () {
+    console.log("Server started succesfully");
+});
