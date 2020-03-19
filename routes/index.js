@@ -1,15 +1,21 @@
-let router = require('express').Router();
+const router = require('express').Router();
+const auth = require('../middleware/auth');
 
 //controllers
-let postController = require('./postController');
+const postController = require('./postController');
+const authController = require('./authController');
 
-router.route('/posts')
-    .get(postController.index)
-    .post(postController.new);
+//posts
+router.get('posts', postController.index);
+router.post('posts', auth, postController.new);
 
-router.route('/posts/:post_id')
-    .get(postController.view)
-    .put(postController.update)
-    .delete(postController.delete);
+//single post
+router.get('posts/:post_id', postController.view);
+router.put('posts/:post_id', auth, postController.update);
+router.delete('posts/:post_id', auth, postController.delete);
+
+//auth
+router.post('auth/login', authController.login);
+router.post('auth/register', authController.register);
 
 module.exports = router;

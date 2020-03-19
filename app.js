@@ -2,6 +2,7 @@
 let express = require('express');
 let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
+var cors = require('cors');
 
 //express and routes init
 let app = express();
@@ -11,8 +12,11 @@ let apiRoutes = require("./routes");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+//cors
+app.use(cors());
+
 //database connection
-mongoose.connect('mongodb://localhost/dmbe', { useNewUrlParser: true, useUnifiedTopology:true });
+mongoose.connect('mongodb://localhost/dmbe', { useNewUrlParser: true, useUnifiedTopology:true, useCreateIndex: true });
 var db = mongoose.connection;
 
 if(db){
