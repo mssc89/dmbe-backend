@@ -17,5 +17,7 @@ router.delete('/posts/:post_id', auth, postController.delete);
 //auth
 router.post('/auth/login', authController.login);
 router.post('/auth/register', authController.register);
+router.post('/auth/logout', auth, authController.logout);
+router.post('/auth/logoutAll', auth, authController.logoutAll);
 
 module.exports = router;
