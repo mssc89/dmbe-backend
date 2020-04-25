@@ -3,7 +3,7 @@ User = require('../models/userModel');
 //register - add new user, return jwt token
 exports.register = async function(req, res) {
   try {
-    const user = new User(req.body);
+    const user = new User(req.body.user);
     await user.save();
     const token = await user.generateToken();
     res.json({
@@ -21,7 +21,7 @@ exports.register = async function(req, res) {
 //login - return jwt token
 exports.login = async function(req, res) {
   try {
-    const { username, password } = req.body;
+    const { username, password } = req.body.user;
     const user = await User.findUser(username, password);
     const token = await user.generateToken();
     res.json({

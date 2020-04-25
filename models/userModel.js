@@ -11,6 +11,12 @@ var userSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    email: {
+        type: String
+    },
+    name: {
+        type: String
+    },
     registerDate: {
         type: Date,
         default: Date.now
@@ -28,6 +34,9 @@ userSchema.pre('save', async function (next) {
   const user = this;
   if (user.isModified('password')) {
       user.password = await bcrypt.hash(user.password, 8);
+  }
+  if(user.registerDate == null){
+      this.registerDate = new Date();
   }
   next();
 })
