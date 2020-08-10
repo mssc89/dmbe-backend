@@ -3,7 +3,7 @@ User = require('../models/userModel');
 //register - add new user, return jwt token
 exports.register = async function(req, res) {
   try {
-    const user = new User(req.body.user);
+    const user = new User(req.body);
     await user.save();
     const token = await user.generateToken();
     res.json({
