@@ -43,7 +43,7 @@ userSchema.pre('save', async function (next) {
 //generate jwt token
 userSchema.methods.generateToken = async function() {
   const user = this;
-  const token = jwt.sign({_id: user._id}, process.env.jwtKey)
+  const token = jwt.sign({_id: user._id, username: user.username, name: user.name}, process.env.jwtKey)
   user.tokens = user.tokens.concat(token);
   
   await user.save();
@@ -52,7 +52,7 @@ userSchema.methods.generateToken = async function() {
 
 //find user in db
 userSchema.statics.findUser = async (username, password) => {
-  const user = await User.findOne({ username } ).select('_id username +password +tokens');;
+  const user = await User.findOne({ username } ).select('_id username name +password +tokens');;
   if (!user) {
       throw new Error('No such user');
   }
