@@ -21,8 +21,9 @@ exports.index = function (req, res) {
 //new - add new post
 exports.new = function (req, res) {
     var post = new Post();
-    post.title = req.body.title ? req.body.title : post.title;
+    post.title = req.body.title;
     post.content = req.body.content;
+    post.author = req.body.author;
     post.save(function (err) {
         if (err){
             res.json({
@@ -66,21 +67,24 @@ exports.update = function (req, res) {
                 data: err,
             });
         }
-        post.title = req.body.title ? req.body.title : post.title;
-        post.content = req.body.content;
-        post.save(function (err) {
-            if (err){
-                res.json({
-                    status: 'error',
-                    data: err,
-                });
-            }
-            else{
-                res.json({
-                    status: 'ok',
-                });
-            }
-        });
+        else{
+            post.title = req.body.title ? req.body.title : post.title;
+            post.content = req.body.content;
+            post.author = req.body.author;
+            post.save(function (err) {
+                if (err){
+                    res.json({
+                        status: 'error',
+                        data: err,
+                    });
+                }
+                else{
+                    res.json({
+                        status: 'ok',
+                    });
+                }
+            });
+        }
     });
 };
 

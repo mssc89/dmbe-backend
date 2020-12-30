@@ -1,4 +1,6 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+userModel = require('./userModel.js'),
+User = mongoose.model('user').schema;
 
 var postSchema = mongoose.Schema({
     title: {
@@ -12,6 +14,10 @@ var postSchema = mongoose.Schema({
     createDate: {
         type: Date,
         default: Date.now
+    },
+    author: {
+        type: User,
+        required: true
     }
 });
 
