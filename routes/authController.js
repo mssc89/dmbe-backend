@@ -21,7 +21,7 @@ exports.register = async function(req, res) {
 //login - return jwt token
 exports.login = async function(req, res) {
   try {
-    const { username, password } = req.body.user;
+    const { username, password } = req.body;
     const user = await User.findUser(username, password);
     const token = await user.generateToken();
     res.json({
@@ -57,7 +57,7 @@ exports.logout = async function(req, res) {
 //logoutAll - remove all user tokens from db
 exports.logoutAll = async function(req, res) {
   try {
-    req.user.tokens.splice(0, req.user.tokens.length);
+    req.user.tokens.list.splice(0, req.user.tokens.list.length);
     await req.user.save();
     res.json({
       status: 'ok'
